@@ -4,6 +4,11 @@ import se.kth.iv1350.POS.controller.Controller;
 
 import java.util.ArrayList;
 
+/**
+ * class that handles the external inventorysystem. for this excercise
+ * a hardcoded list is created for test purposes.
+ */
+
 public class InventorySystem {
     Controller controller;
     ItemDTO itemDTO;

@@ -1,12 +1,19 @@
 package se.kth.iv1350.POS.integration;
 
 
-import se.kth.iv1350.POS.model.Sale;
-
+/**
+ * Class that communicates with the printer. in this exercise
+ * the printer prints to the system out print
+ */
 public class Printer {
     Printer() {
     }
 
+    /**
+     * prints the receipt
+     *
+     * @param receiptDTO    receipt that should be printed
+     */
     public void printReceipt(ReceiptDTO receiptDTO){
 
         System.out.println("-------------------------->");

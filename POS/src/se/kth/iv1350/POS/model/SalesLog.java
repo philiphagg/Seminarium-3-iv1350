@@ -12,7 +12,9 @@ public class SalesLog {
     InventorySystem inventorySystem;
 
     /**
-     * creates a new sales log instance
+     * initiates sales log and getting references to appropriate systems.
+     *
+     * @param systemStartup
      */
     public SalesLog(SystemStartup systemStartup) {
         accountingSystem = systemStartup.getAccountingSystem();
@@ -22,7 +24,10 @@ public class SalesLog {
 
     /**
      * logs sale into saleslog, accountingsystem and inventorysystem.
-     * @param receiptDTO
+     *
+     * @param receiptDTO    receiptDTO contains more information than a sale
+     *                      therefore I choosed to log the receipt that contains
+     *                      all availiable information about each sale
      */
     public void logSale(ReceiptDTO receiptDTO){
         addSaleToSalesLog(receiptDTO);
@@ -31,15 +36,16 @@ public class SalesLog {
 
     }
 
-    /**
-     * logs a receipt inside the saleslog. The receipt includes all available information
-     * about each sale.
-     * @param receiptDTO
-     */
+
     private void addSaleToSalesLog(ReceiptDTO receiptDTO){
         salesLog.add(receiptDTO);
     }
 
+    /**
+     * Extracts attribute from Sales log object
+     *
+     * @return current sales log.
+     */
     public ArrayList<ReceiptDTO> getSalesLog() {
         return salesLog;
     }

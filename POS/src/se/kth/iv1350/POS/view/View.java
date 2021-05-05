@@ -8,14 +8,17 @@ public class View  {
     Controller controller;
 
     public View(){
+
         this.controller = new Controller();
     }
-    public void initializeSale(){
+
+
+    private void initializeSale(){
         controller.initializeSale();
         System.out.println("A new sale has been started");
     }
 
-    public void scanItem(int identifier, int quantity){
+    private void scanItem(int identifier, int quantity){
 
         Sale saleDetails = controller.scanItem(identifier, quantity);
         ItemDTO recentlyScannedItemDTO = recentScannedItem(saleDetails);
@@ -36,26 +39,33 @@ public class View  {
         return saleDetails.getItemListInSale().size() - 1;
     }
 
-    public void endSale(){
+    private void endSale(){
         double totalPriceIncVat = controller.endSale();
         System.out.println("-------------------------->");
         System.out.println("sale finished");
         System.out.println("Total Price inc VAT: " + totalPriceIncVat);
         System.out.println("<--------------------------");
     }
-    public void enterAmountPaid(double amountPaid){
+    private void enterAmountPaid(double amountPaid){
 
         double amountChange = controller.calculateChange(amountPaid);
         System.out.println("-------------------------->");
         System.out.println("Amount change after payment: " + amountChange);
         System.out.println("<--------------------------");
     }
-    public void requestDiscount(long custumerSSN){
+    private void requestDiscount(long custumerSSN){
         double totalPriceAfterDiscount = controller.requestDiscount(custumerSSN);
         System.out.println("-------------------------->");
         System.out.println("Total price after discount: " +totalPriceAfterDiscount);
         System.out.println("<--------------------------");
     }
+
+    /**
+     * Method that runs a fake execution of the program.
+     * that is not a part of the program but simulates expected output
+     * of function calls.
+     *
+     */
     public void runFakeExecution(){
         initializeSale();
         scanItem(2,1);

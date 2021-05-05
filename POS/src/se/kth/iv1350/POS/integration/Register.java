@@ -2,6 +2,13 @@ package se.kth.iv1350.POS.integration;
 
 import se.kth.iv1350.POS.model.Sale;
 
+
+/**
+ * Class that represents the physical register in the point of sale. Register contains
+ * an amount that will be used as a collector of payment and contains change to
+ * give to customer.
+ */
+
 public class Register {
     private double amountInRegister;
 

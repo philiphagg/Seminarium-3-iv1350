@@ -4,6 +4,10 @@ import se.kth.iv1350.POS.model.Sale;
 
 import java.time.LocalDateTime;
 
+/**
+ * class that represents the ReceiptDTO. Can be sent through different layers
+ *
+ */
 
 public class ReceiptDTO {
     private static final String storeStreet = "Glada gatan";
@@ -18,9 +22,11 @@ public class ReceiptDTO {
 
     /**
      * Creates a receipt data transfer object. To send data between layers in the system.
-     * @param amountPaid
-     * @param amountChange
-     * @param saleDetails
+     * also logs date and time for the sale upton creation.
+     *
+     * @param amountPaid    amounth customer pays for sale
+     * @param amountChange  amount change after payment
+     * @param saleDetails   details about each sale.
      */
     public ReceiptDTO(double amountPaid, double amountChange, Sale saleDetails) {
 

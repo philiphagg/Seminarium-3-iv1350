@@ -4,6 +4,10 @@ import se.kth.iv1350.POS.integration.ItemDTO;
 
 import java.util.*;
 
+
+/**
+ * Class that handles instances of sale processes.
+ */
 public class Sale {
     ArrayList<ItemDTO> itemListInSale;
     List<Integer> itemQuantityListInSale;
@@ -24,7 +28,13 @@ public class Sale {
 
     /**
      * adds an item to the sale. One arraylist for the item itself and one arraylist
-     * for the quantity. Will be positioned on the same index.
+     * for the quantity. Will be positioned on the same index. Also
+     * updates attributes for:
+     *
+     * Total price of the sale
+     * total vat price of the sale
+     * total items in current sale
+     *
      * @param itemDTO
      * @param quantity
      */
@@ -40,42 +50,76 @@ public class Sale {
         return itemDTO.getItemVATRate() * itemDTO.getItemPrice();
     }
 
+
+    /**
+     * Extracts attributes of sale object
+     *
+     * @return list of items in current sale
+     */
     public ArrayList<ItemDTO> getItemListInSale() {
         return itemListInSale;
     }
 
+    /**
+     * Extracts attributes of sale object
+     *
+     * @return list of quantitys connected to the current sale and items
+     */
     public List<Integer> getItemQuantityListInSale() {
         return itemQuantityListInSale;
     }
 
+    /**
+     * Extracts attributes of sale object
+     *
+     * @return total price for the entire sale ex vat
+     */
     public double getTotalPriceForSale() {
         return totalPriceForSale;
     }
 
+    /**
+     * Extracts attributes of sale object
+     *
+     * @return total vat price for the entire sale
+     */
     public double getTotalVatPrice() {
         return totalVatPrice;
     }
 
+    /**
+     * Extracts attributes of sale object
+     *
+     * @return total price including vat
+     */
     public double getTotalPriceIncVat(){
         return getTotalPriceForSale() + getTotalVatPrice();
     }
 
-    public void setItemListInSale(ArrayList<ItemDTO> itemListInSale) {
-        this.itemListInSale = itemListInSale;
-    }
-
-    public void setItemQuantityListInSale(List<Integer> itemQuantityListInSale) {
-        this.itemQuantityListInSale = itemQuantityListInSale;
-    }
-
+    /**
+     * sets a value to an attribute in sales object
+     *
+     * @param totalPriceForSale sets total price for entire sale
+     */
     public void setTotalPriceForSale(double totalPriceForSale) {
         this.totalPriceForSale = totalPriceForSale;
     }
 
+
+    /**
+     * sets a value to an attribute in sales object
+     *
+     * @param totalVatPrice sets total vat price for entire sale
+     */
     public void setTotalVatPrice(double totalVatPrice) {
         this.totalVatPrice = totalVatPrice;
     }
 
+    /**
+     * Extracts attributes of sale object
+     *
+     * @return total of items in current sale
+     */
     public int getTotalItemQuantityInSale() {
         return totalItemQuantityInSale;
     }

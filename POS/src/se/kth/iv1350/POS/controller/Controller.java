@@ -16,7 +16,7 @@ public class Controller {
     InventorySystem inventorySystem;
 
     /**
-     * Constructor creates objects for <code>discountRules</code>
+     * Constructor creates all appropriate objets to run the application.
      */
     public Controller() {
         this.discountRules = new DiscountRules();
@@ -37,10 +37,13 @@ public class Controller {
     }
 
     /**
-     * adds item to the salesobject.
-     * @param identifier
-     * @param quantity
-     * @return
+     * adds item to the salesobject. If <code>quantity</code> is zero,
+     * it will be replaced by quantity 1 as default.
+     * also searched through inventorysystem and find matching item.
+     *
+     * @param identifier    each item has a individual identifier
+     * @param quantity      quantity of items sold.
+     * @return              updated instance of Sale object
      */
     public Sale scanItem(int identifier, int quantity){
         if(isZero(quantity))
@@ -74,8 +77,7 @@ public class Controller {
 
     /**
      * Cashier requests discount and this will be the final step in the salesprocess
-     * updates the register - creates a receipt - logs the sale in the sales log and
-     * prints the receipt.
+     *
      *
      * @param customerSSN   Customer identification number
      * @return              returns total price for the sale after discount
@@ -102,11 +104,7 @@ public class Controller {
         return amountChange;
     }
 
-    /**
-     * checks if a item is registered in the inventory-system.
-     * @param itemDTO
-     * @return  <code>true</code> if item is valid for scan <code>false</code> if item is not found in inventorysystem.
-     */
+
     private boolean isValid(ItemDTO itemDTO){
 
         return controlValidItemDescription(itemDTO);
@@ -120,6 +118,11 @@ public class Controller {
         System.out.println("Item you're trying to scan is not yet in the inventory system");
     }
 
+    /**
+     * extracts the sales object from controller.
+     *
+     * @return sales object
+     */
     public Sale getSaleDetails() {
 
         return saleDetails;

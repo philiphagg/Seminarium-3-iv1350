@@ -1,0 +1,135 @@
+package se.kth.iv1350.POS.controller;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import se.kth.iv1350.POS.integration.ItemDTO;
+import se.kth.iv1350.POS.integration.ReceiptDTO;
+import se.kth.iv1350.POS.integration.Register;
+import se.kth.iv1350.POS.integration.SystemStartup;
+import se.kth.iv1350.POS.model.Sale;
+
+import javax.annotation.processing.SupportedAnnotationTypes;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class ControllerTest {
+    Controller controller;
+    Sale saleDetails;
+    @BeforeEach
+    void setUp() {
+        this.controller = new Controller();
+    }
+
+    @AfterEach
+    void tearDown() {
+        this.controller = null;
+    }
+
+    @Test
+    void testIfInitializeSaleCreatesSaleObject() {
+        controller.initializeSale();
+        assertTrue(controller.saleDetails != null, "Controllers sale objekt is not created");
+    }
+
+    @Test
+    void controllerInstanceOf(){
+        assertTrue(controller instanceof Controller);
+    }
+
+    @Test
+    void scanItemFindscorrectItem() {
+        controller.initializeSale();
+        saleDetails = controller.scanItem(3,2);
+        String expectedItemName = "bröd";
+        String actual = saleDetails.getItemListInSale().get(0).getItemName();
+        assertEquals(expectedItemName,actual, "Expected item didn't add to sale object");
+    }
+    @Test
+    void scanItemZeroQty() {
+        controller.initializeSale();
+        saleDetails = controller.scanItem(1,0);
+        int numberOfItemsInSale = saleDetails.getItemListInSale().size();
+        int expectedItemsInSale = 1;
+        assertEquals(expectedItemsInSale,numberOfItemsInSale, "zero items was added.");
+
+    }
+    @Test
+    void testScanItemAddsItem(){
+        controller.initializeSale();
+        saleDetails = controller.scanItem(1,1);
+
+        int numberOfItemsInSale = saleDetails.getItemListInSale().size();
+        int expectedItemsInSale = 1;
+        assertEquals(expectedItemsInSale,numberOfItemsInSale, "Items was not added");
+    }
+    @Test
+    void testScanItemAddsQty(){
+        controller.initializeSale();
+        saleDetails = controller.scanItem(1,2);
+
+        int numberOfItemsInSale = saleDetails.getTotalItemQuantityInSale();
+        int expectedItemsInSale = 2;
+        assertEquals(expectedItemsInSale,numberOfItemsInSale, "Quantity was not added to the sale");
+    }
+
+    @Test
+    void endSale() {
+        Sale saleDetails = new Sale();
+        double totalPrice = 10;
+        double totalVAT = 2.5;
+        saleDetails.setTotalPriceForSale(totalPrice);
+        saleDetails.setTotalVatPrice(totalVAT);
+        double runningTotalIncVat = saleDetails.getTotalPriceIncVat();
+        double expected = totalPrice + totalVAT;
+        assertEquals(expected,runningTotalIncVat,"did not return expected value");
+    }
+
+    @Test
+    void requestDiscount() {
+        /**
+         * was not included in seminar 3, left blanc on purpose
+         */
+    }
+
+    @Test
+    void calculateChange() {
+        Sale saleDetails = new Sale();
+        saleDetails.setTotalPriceForSale(70);
+        saleDetails.setTotalVatPrice(10);
+        SystemStartup systemStartup = new SystemStartup();
+        Register register = systemStartup.getRegister();
+        double testAmountPaid = 100;
+        double expected = testAmountPaid - saleDetails.getTotalPriceIncVat();
+        double testAmountChange = register.updateRegister(testAmountPaid, saleDetails);
+        assertEquals(expected, testAmountChange,"did not calculate change as expected");
+    }
+
+
+
+
+
+    @Test
+    void testCalculateChangePrintReceipt(){
+
+    }
+    @Test
+    void testReturnsChange(){
+        controller.initializeSale();
+        controller.scanItem(1,1);
+        double actual = controller.calculateChange(12.5);
+        int expected = 0;
+        assertEquals(expected,actual, "Did not calculate change as expected");
+    }
+
+    @Test
+    void testCalculateChangeLogsSale(){
+        controller.initializeSale();
+        controller.calculateChange(100);
+        int actual = controller.salesLog.getSalesLog().size();
+        int expected = 1;
+        assertEquals(expected,actual);
+
+    }
+
+}

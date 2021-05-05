@@ -121,6 +121,7 @@ public class Controller {
     }
 
     public Sale getSaleDetails() {
+
         return saleDetails;
     }
 }

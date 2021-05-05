@@ -13,8 +13,9 @@ public class SystemStartup {
     Printer printer;
 
 
-
-
+    /**
+     * assigning new objects the appropriate fields.
+     */
     public SystemStartup(){
         this.accountingSystem = new AccountingSystem();
         this.inventorySystem = new InventorySystem();

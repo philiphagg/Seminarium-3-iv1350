@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class AccountingSystem {
     ArrayList<ReceiptDTO> AccountingSystem;
 
+
     AccountingSystem(){
         AccountingSystem = new ArrayList<>();
     }

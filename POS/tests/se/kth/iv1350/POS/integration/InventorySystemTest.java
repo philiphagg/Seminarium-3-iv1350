@@ -38,4 +38,5 @@ class InventorySystemTest {
         String actual = itemDTO.getItemName();
         assertEquals(expectedItemName,actual, "Expected item didn't add to sale object");
     }
+
 }

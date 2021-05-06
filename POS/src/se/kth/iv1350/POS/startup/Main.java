@@ -13,7 +13,7 @@ public class Main {
      * Main method that boots application. Starts up the view and runs a
      * fake execution to demonstrate the application.
      *
-     * @param args  array of command line arguments 
+     * @param args  array of command line arguments
      */
     public static void main(String[] args) {
         View view = new View();

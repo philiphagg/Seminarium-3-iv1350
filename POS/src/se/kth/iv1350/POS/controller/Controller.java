@@ -5,6 +5,10 @@ import se.kth.iv1350.POS.model.DiscountRules;
 import se.kth.iv1350.POS.model.Sale;
 import se.kth.iv1350.POS.model.SalesLog;
 
+/**
+ * Controller class that hands out tasks to appropriate classes.
+ *
+ */
 
 public class Controller {
     SystemStartup systemStartUp;
@@ -14,6 +18,7 @@ public class Controller {
     SalesLog salesLog;
     Printer printer;
     InventorySystem inventorySystem;
+    ItemDTO latestScanedItemDTO;
 
     /**
      * Constructor creates all appropriate objets to run the application.
@@ -40,6 +45,8 @@ public class Controller {
      * adds item to the salesobject. If <code>quantity</code> is zero,
      * it will be replaced by quantity 1 as default.
      * also searched through inventorysystem and find matching item.
+     * if item is already scanned it sums previous value and
+     * new value into the quantity list
      *
      * @param identifier    each item has a individual identifier
      * @param quantity      quantity of items sold.
@@ -49,10 +56,10 @@ public class Controller {
         if(isZero(quantity))
             quantity = 1;
 
-        ItemDTO itemDTO = inventorySystem.getDetails(identifier);
+        latestScanedItemDTO = inventorySystem.getDetails(identifier);
 
-        if(isValid(itemDTO)){
-            saleDetails.addItem(itemDTO, quantity);
+        if(isValid(latestScanedItemDTO)){
+            saleDetails.addItem(latestScanedItemDTO, quantity);
         }else{
             invalidIdentifierMessage();
         }
@@ -97,11 +104,15 @@ public class Controller {
     public double calculateChange(double amountPaid){
         double amountChange = register.updateRegister(amountPaid, saleDetails);
         ReceiptDTO receiptDTO = new ReceiptDTO(amountPaid, amountChange, saleDetails);
-        salesLog.logSale(receiptDTO);
-        printer.printReceipt(receiptDTO);
+        logsSaleAndPrintsReceipt(receiptDTO);
 
 
         return amountChange;
+    }
+
+    private void logsSaleAndPrintsReceipt(ReceiptDTO receiptDTO) {
+        salesLog.logSale(receiptDTO);
+        printer.printReceipt(receiptDTO);
     }
 
 
@@ -126,5 +137,14 @@ public class Controller {
     public Sale getSaleDetails() {
 
         return saleDetails;
+    }
+
+    /**
+     * Extracts attribute from the latest scanned item
+     *
+     * @return  latest scanned item
+     */
+    public ItemDTO getLatestItemDTO() {
+        return latestScanedItemDTO;
     }
 }

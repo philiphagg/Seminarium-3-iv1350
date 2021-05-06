@@ -77,4 +77,33 @@ class SaleTest {
         assertEquals(expected,actual,"item quantity didn't add correctly");
     }
 
+    @Test
+    void addItemAlreadyScanned(){
+        ItemDTO itemDTO = inventorySystem.getDetails(1);
+        saleDetails.addItem(itemDTO,1);
+        saleDetails.addItem(itemDTO,1);
+        int actual = saleDetails.getItemListInSale().size();
+        int expected = 1;
+        assertEquals(expected,actual,"no item was added to Sale");
+    }
+    @Test
+    void addItemAlreadyScannedCheckQuantityList(){
+        ItemDTO itemDTO = inventorySystem.getDetails(1);
+        saleDetails.addItem(itemDTO,2);
+        saleDetails.addItem(itemDTO,3);
+        int actual = saleDetails.getItemQuantityListInSale().get(0);
+        int expected = 5;
+        assertEquals(expected,actual,"quantity did not calculate correctly after scanning same item");
+    }
+    @Test
+    void addItemAlreadyScannedTotalQuantity(){
+        ItemDTO itemDTO = inventorySystem.getDetails(1);
+        saleDetails.addItem(itemDTO,2);
+        saleDetails.addItem(itemDTO,3);
+        int actual = saleDetails.getTotalItemQuantityInSale();
+        int expected = 5;
+        assertEquals(expected,actual,"quantity did not calculate correctly after scanning same item");
+    }
+
+
 }

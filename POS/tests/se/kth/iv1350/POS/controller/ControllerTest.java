@@ -3,13 +3,11 @@ package se.kth.iv1350.POS.controller;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import se.kth.iv1350.POS.integration.ItemDTO;
-import se.kth.iv1350.POS.integration.ReceiptDTO;
+
 import se.kth.iv1350.POS.integration.Register;
 import se.kth.iv1350.POS.integration.SystemStartup;
 import se.kth.iv1350.POS.model.Sale;
 
-import javax.annotation.processing.SupportedAnnotationTypes;
 
 import static org.junit.jupiter.api.Assertions.*;
 

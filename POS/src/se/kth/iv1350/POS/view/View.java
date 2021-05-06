@@ -21,7 +21,7 @@ public class View  {
     private void scanItem(int identifier, int quantity){
 
         Sale saleDetails = controller.scanItem(identifier, quantity);
-        ItemDTO recentlyScannedItemDTO = recentScannedItem(saleDetails);
+        ItemDTO recentlyScannedItemDTO = recentScannedItem();
         System.out.println("-------------------------->");
         System.out.println("Running total ex VAT: " + saleDetails.getTotalPriceForSale());
         System.out.println("Running total inc VAT: " + saleDetails.getTotalPriceIncVat());
@@ -31,13 +31,10 @@ public class View  {
         System.out.println("<--------------------------");
     }
 
-    private ItemDTO recentScannedItem(Sale saleDetails) {
-        return saleDetails.getItemListInSale().get(lastIndex(saleDetails));
+    private ItemDTO recentScannedItem() {
+        return controller.getLatestItemDTO();
     }
 
-    private int lastIndex(Sale saleDetails) {
-        return saleDetails.getItemListInSale().size() - 1;
-    }
 
     private void endSale(){
         double totalPriceIncVat = controller.endSale();
@@ -69,7 +66,8 @@ public class View  {
     public void runFakeExecution(){
         initializeSale();
         scanItem(2,1);
-        scanItem(3,3);
+        scanItem(1,1);
+        scanItem(2,3);
         endSale();
         enterAmountPaid(250);
     }

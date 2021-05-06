@@ -28,8 +28,9 @@ public class Sale {
 
     /**
      * adds an item to the sale. One arraylist for the item itself and one arraylist
-     * for the quantity. Will be positioned on the same index. Also
-     * updates attributes for:
+     * for the quantity. Will be positioned on the same index. If item is not found
+     * it will update the value in the quantity list instead of adding duplicate DTO
+     * Also updates attributes for:
      *
      * Total price of the sale
      * total vat price of the sale
@@ -39,11 +40,42 @@ public class Sale {
      * @param quantity
      */
     public void addItem(ItemDTO itemDTO, int quantity){
-        itemListInSale.add(itemDTO);
-        itemQuantityListInSale.add(quantity);
+        if(!itemAlreadyScanned(itemDTO)) {
+            itemListInSale.add(itemDTO);
+            itemQuantityListInSale.add(quantity);
+        }
+        else {
+            updateAlreadyScannedItem(itemDTO, quantity);
+        }
         this.totalPriceForSale += itemDTO.getItemPrice() * quantity;
         this.totalVatPrice += itemVATPrice(itemDTO) * quantity;
         this.totalItemQuantityInSale += quantity;
+    }
+
+    private void updateAlreadyScannedItem(ItemDTO itemDTO, int quantity) {
+        for(int index = 0; index < itemListInSale.size(); index++){
+            if(itemFound(itemDTO, index)){
+                updateQuantityList(quantity, index);
+            }
+        }
+
+
+    }
+
+
+    private boolean itemFound(ItemDTO itemDTO, int index) {
+        return itemListInSale.get(index).getItemIdentifier() == itemDTO.getItemIdentifier();
+    }
+
+    private void updateQuantityList(int quantity, int index) {
+        int previous = itemQuantityListInSale.get(index);
+        int newValue = previous + quantity;
+        this.itemQuantityListInSale.set(index, newValue);
+    }
+
+    private boolean itemAlreadyScanned(ItemDTO itemDTO){
+
+        return itemListInSale.contains(itemDTO);
     }
 
     private double itemVATPrice(ItemDTO itemDTO) {

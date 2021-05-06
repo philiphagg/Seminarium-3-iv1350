@@ -31,8 +31,8 @@ class ControllerTest {
     }
 
     @Test
-    void controllerInstanceOf(){
-        assertTrue(controller instanceof Controller);
+    void controllerIsCreated(){
+        assertTrue(controller != null);
     }
 
     @Test

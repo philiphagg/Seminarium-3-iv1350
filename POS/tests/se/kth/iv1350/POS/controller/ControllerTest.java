@@ -27,12 +27,12 @@ class ControllerTest {
     @Test
     void testIfInitializeSaleCreatesSaleObject() {
         controller.initializeSale();
-        assertTrue(controller.saleDetails != null, "Controllers sale objekt is not created");
+        assertNotNull(controller.saleDetails, "Controllers sale objekt is not created");
     }
 
     @Test
     void controllerIsCreated(){
-        assertTrue(controller != null);
+        assertNotNull(controller);
     }
 
     @Test

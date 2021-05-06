@@ -32,7 +32,7 @@ class SaleTest {
 
     @Test
     void saleInstanceOf(){
-        assertTrue(saleDetails instanceof Sale);
+        assertNotNull(saleDetails);
     }
 
     @Test

@@ -25,7 +25,7 @@ class RegisterTest {
 
     @Test
     void testCreateRegister() {
-        assertTrue(register instanceof Register, "register is not an instance of Register");
+        assertNotNull(register, "register is not an instance of Register");
     }
 
     @Test

@@ -31,7 +31,7 @@ class InventorySystemTest {
 
 
     @Test
-    void getDetailsCreatesItemDTOCorrectly() {
+    void getDetailsCreatesItemDTOCorrectly()  {
 
         itemDTO = inventorySystem.getDetails(3);
         String expectedItemName = "bröd";

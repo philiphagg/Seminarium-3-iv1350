@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import se.kth.iv1350.POS.controller.Controller;
+import se.kth.iv1350.POS.integration.InvalidIdentifierException;
 import se.kth.iv1350.POS.integration.InventorySystem;
 import se.kth.iv1350.POS.integration.ItemDTO;
 import se.kth.iv1350.POS.integration.SystemStartup;
@@ -36,7 +37,7 @@ class SaleTest {
     }
 
     @Test
-    void addItemToSale() {
+    void addItemToSale() throws InvalidIdentifierException {
         ItemDTO itemDTO = inventorySystem.getDetails(1);
         saleDetails.addItem(itemDTO,1);
         int actual = saleDetails.getItemListInSale().size();
@@ -44,7 +45,7 @@ class SaleTest {
         assertEquals(expected,actual,"no item was added to Sale");
     }
     @Test
-    void addQuantityToSale() {
+    void addQuantityToSale() throws InvalidIdentifierException {
         ItemDTO itemDTO = inventorySystem.getDetails(1);
         saleDetails.addItem(itemDTO,2);
         int actual = saleDetails.getItemQuantityListInSale().size();
@@ -52,7 +53,7 @@ class SaleTest {
         assertEquals(expected,actual,"no quantity was added to Sale");
     }
     @Test
-    void addTotalPriceForSale() {
+    void addTotalPriceForSale() throws InvalidIdentifierException {
         ItemDTO itemDTO = inventorySystem.getDetails(1);
         saleDetails.addItem(itemDTO,2);
         double actual = saleDetails.getTotalPriceForSale();
@@ -60,7 +61,7 @@ class SaleTest {
         assertEquals(expected,actual,"total price for sale wasn't calculated correctly");
     }
     @Test
-    void addVatPrice() {
+    void addVatPrice() throws InvalidIdentifierException {
         ItemDTO itemDTO = inventorySystem.getDetails(1);
         saleDetails.addItem(itemDTO,2);
         double actual = saleDetails.getTotalVatPrice();
@@ -69,7 +70,7 @@ class SaleTest {
 
     }
     @Test
-    void addTotalItemQuantity() {
+    void addTotalItemQuantity() throws InvalidIdentifierException {
         ItemDTO itemDTO = inventorySystem.getDetails(1);
         saleDetails.addItem(itemDTO,2);
         double actual = saleDetails.getTotalItemQuantityInSale();
@@ -78,7 +79,7 @@ class SaleTest {
     }
 
     @Test
-    void addItemAlreadyScanned(){
+    void addItemAlreadyScanned() throws InvalidIdentifierException {
         ItemDTO itemDTO = inventorySystem.getDetails(1);
         saleDetails.addItem(itemDTO,1);
         saleDetails.addItem(itemDTO,1);
@@ -87,7 +88,7 @@ class SaleTest {
         assertEquals(expected,actual,"no item was added to Sale");
     }
     @Test
-    void addItemAlreadyScannedCheckQuantityList(){
+    void addItemAlreadyScannedCheckQuantityList() throws InvalidIdentifierException {
         ItemDTO itemDTO = inventorySystem.getDetails(1);
         saleDetails.addItem(itemDTO,2);
         saleDetails.addItem(itemDTO,3);
@@ -96,7 +97,7 @@ class SaleTest {
         assertEquals(expected,actual,"quantity did not calculate correctly after scanning same item");
     }
     @Test
-    void addItemAlreadyScannedTotalQuantity(){
+    void addItemAlreadyScannedTotalQuantity() throws InvalidIdentifierException {
         ItemDTO itemDTO = inventorySystem.getDetails(1);
         saleDetails.addItem(itemDTO,2);
         saleDetails.addItem(itemDTO,3);

@@ -1,11 +1,15 @@
 package se.kth.iv1350.POS.view;
 
 import se.kth.iv1350.POS.controller.Controller;
+import se.kth.iv1350.POS.integration.DBFailureException;
+import se.kth.iv1350.POS.integration.InvalidIdentifierException;
 import se.kth.iv1350.POS.integration.ItemDTO;
+import se.kth.iv1350.POS.integration.OperationFailedException;
 import se.kth.iv1350.POS.model.Sale;
 
 public class View  {
     Controller controller;
+    Sale saleDetails;
 
     public View(){
 
@@ -18,9 +22,15 @@ public class View  {
         System.out.println("A new sale has been started");
     }
 
-    private void scanItem(int identifier, int quantity){
+    private void scanItem(int identifier, int quantity)  {
 
-        Sale saleDetails = controller.scanItem(identifier, quantity);
+        try {
+            saleDetails = controller.scanItem(identifier, quantity);
+        }catch(InvalidIdentifierException invalidIdentifierException){
+            System.out.println("identifier you're trying to scan is invalid");
+        }catch(OperationFailedException operationFailedException){
+            System.out.println("Something went wrong -> " +operationFailedException);
+        }
         ItemDTO recentlyScannedItemDTO = recentScannedItem();
         System.out.println("-------------------------->");
         System.out.println("Running total ex VAT: " + saleDetails.getTotalPriceForSale());
@@ -63,11 +73,12 @@ public class View  {
      * of function calls.
      *
      */
-    public void runFakeExecution(){
+    public void runFakeExecution() throws InvalidIdentifierException {
         initializeSale();
-        scanItem(2,1);
-        scanItem(1,1);
-        scanItem(2,3);
+        scanItem(3,1);
+        scanItem(10,1);
+        scanItem(3,3);
+        scanItem(5,1);
         endSale();
         enterAmountPaid(250);
     }

@@ -1,6 +1,8 @@
 package se.kth.iv1350.POS.startup;
 
 
+
+import se.kth.iv1350.POS.integration.InvalidIdentifierException;
 import se.kth.iv1350.POS.view.View;
 
 /**
@@ -15,7 +17,7 @@ public class Main {
      *
      * @param args  array of command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidIdentifierException {
         View view = new View();
         view.runFakeExecution();
     }

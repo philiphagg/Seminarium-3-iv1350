@@ -1,5 +1,6 @@
 package se.kth.iv1350.POS.model;
 
+import se.kth.iv1350.POS.integration.InvalidIdentifierException;
 import se.kth.iv1350.POS.integration.ItemDTO;
 
 import java.util.*;
@@ -39,7 +40,10 @@ public class Sale {
      * @param itemDTO
      * @param quantity
      */
-    public void addItem(ItemDTO itemDTO, int quantity){
+    public void addItem(ItemDTO itemDTO, int quantity) throws InvalidIdentifierException {
+        if(itemDTO.getItemName() == "invalid"){
+            throw new InvalidIdentifierException("identifier is invalid: " +itemDTO.getItemIdentifier());
+        }
         if(!itemAlreadyScanned(itemDTO)) {
             itemListInSale.add(itemDTO);
             itemQuantityListInSale.add(quantity);

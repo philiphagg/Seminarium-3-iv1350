@@ -3,7 +3,8 @@ package se.kth.iv1350.POS.controller;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import se.kth.iv1350.POS.integration.InvalidIdentifierException;
+import se.kth.iv1350.POS.integration.OperationFailedException;
 import se.kth.iv1350.POS.integration.Register;
 import se.kth.iv1350.POS.integration.SystemStartup;
 import se.kth.iv1350.POS.model.Sale;
@@ -36,7 +37,7 @@ class ControllerTest {
     }
 
     @Test
-    void scanItemFindscorrectItem() {
+    void scanItemFindscorrectItem() throws InvalidIdentifierException, OperationFailedException {
         controller.initializeSale();
         saleDetails = controller.scanItem(3,2);
         String expectedItemName = "bröd";
@@ -44,7 +45,7 @@ class ControllerTest {
         assertEquals(expectedItemName,actual, "Expected item didn't add to sale object");
     }
     @Test
-    void scanItemZeroQty() {
+    void scanItemZeroQty() throws InvalidIdentifierException, OperationFailedException {
         controller.initializeSale();
         saleDetails = controller.scanItem(1,0);
         int numberOfItemsInSale = saleDetails.getItemListInSale().size();
@@ -53,7 +54,7 @@ class ControllerTest {
 
     }
     @Test
-    void testScanItemAddsItem(){
+    void testScanItemAddsItem() throws InvalidIdentifierException, OperationFailedException {
         controller.initializeSale();
         saleDetails = controller.scanItem(1,1);
 
@@ -62,7 +63,7 @@ class ControllerTest {
         assertEquals(expectedItemsInSale,numberOfItemsInSale, "Items was not added");
     }
     @Test
-    void testScanItemAddsQty(){
+    void testScanItemAddsQty() throws InvalidIdentifierException, OperationFailedException {
         controller.initializeSale();
         saleDetails = controller.scanItem(1,2);
 
@@ -112,7 +113,7 @@ class ControllerTest {
 
     }
     @Test
-    void testReturnsChange(){
+    void testReturnsChange() throws InvalidIdentifierException, OperationFailedException {
         controller.initializeSale();
         controller.scanItem(1,1);
         double actual = controller.calculateChange(12.5);

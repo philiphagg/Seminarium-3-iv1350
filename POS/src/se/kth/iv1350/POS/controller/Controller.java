@@ -52,21 +52,21 @@ public class Controller {
      * @param quantity      quantity of items sold.
      * @return              updated instance of Sale object
      */
-    public Sale scanItem(int identifier, int quantity){
+    public Sale scanItem(int identifier, int quantity) throws InvalidIdentifierException, OperationFailedException {
         if(isZero(quantity))
             quantity = 1;
-
+        try{
         latestScanedItemDTO = inventorySystem.getDetails(identifier);
+        }catch (DBFailureException dbFailureException){
+            //add to log
+            throw new OperationFailedException("error with current identifier: "+identifier, dbFailureException);
 
-        if(isValid(latestScanedItemDTO)){
-            saleDetails.addItem(latestScanedItemDTO, quantity);
-        }else{
-            invalidIdentifierMessage();
         }
-
+        saleDetails.addItem(latestScanedItemDTO, quantity);
 
         return saleDetails;
     }
+
 
     private boolean isZero(int quantity) {
         return quantity == 0;
@@ -116,18 +116,6 @@ public class Controller {
     }
 
 
-    private boolean isValid(ItemDTO itemDTO){
-
-        return controlValidItemDescription(itemDTO);
-    }
-    private boolean controlValidItemDescription(ItemDTO itemDTO){
-        return itemDTO.getItemDescription() != "Invalid identifier";
-    }
-
-
-    private void invalidIdentifierMessage(){
-        System.out.println("Item you're trying to scan is not yet in the inventory system");
-    }
 
     /**
      * extracts the sales object from controller.

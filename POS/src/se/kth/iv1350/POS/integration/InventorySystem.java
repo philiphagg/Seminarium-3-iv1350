@@ -24,6 +24,7 @@ public class InventorySystem {
         inventoryItemList.add(new ItemDTO(2,0.06, 20,"underbara bullar", "bulle"));
         inventoryItemList.add(new ItemDTO(3,0.12, 30,"nybakat bröd", "bröd"));
         inventoryItemList.add(new ItemDTO(4,0.25, 40,"innovativt kaffefilter med superfunktioner", "kaffefilter"));
+        inventoryItemList.add(new ItemDTO(5,0.25, 10,"Item generates DB error", "RandomItem"));
     }
 
 
@@ -52,18 +53,21 @@ public class InventorySystem {
      * @param identifier    item identifier
      * @return              a newly creater itemdto with information found
      */
-    public ItemDTO getDetails(int identifier){
+    public ItemDTO getDetails(int identifier) {
 
         return findItem(identifier);
     }
-    private ItemDTO findItem(int identifier){
+    private ItemDTO findItem(int identifier) {
+        if(identifier == 5)
+            throw new DBFailureException("error code: 125454213");
         for (int index = 0; index < inventoryItemList.size(); index++){
             itemDTO = inventoryItemList.get(index);
                 if (itemFound(identifier))
                     return itemDTO;
+
         }
 
-        return itemDTO = null;
+        return new ItemDTO(identifier,0,0,"invalid", "invalid");
     }
     private boolean itemFound(int identifier){
         return itemDTO.getItemIdentifier() == identifier;

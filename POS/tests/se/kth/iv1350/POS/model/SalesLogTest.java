@@ -4,9 +4,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import se.kth.iv1350.POS.controller.Controller;
-import se.kth.iv1350.POS.integration.ItemDTO;
-import se.kth.iv1350.POS.integration.ReceiptDTO;
-import se.kth.iv1350.POS.integration.SystemStartup;
+import se.kth.iv1350.POS.integration.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -28,7 +27,7 @@ class SalesLogTest {
     }
 
     @Test
-    void logSaleLogsReceipt() {
+    void logSaleLogsReceipt() throws InvalidIdentifierException, OperationFailedException {
         controller.initializeSale();
         Sale saleDetails = controller.scanItem(1,1);
         ReceiptDTO receiptDTO = new ReceiptDTO(100,10,saleDetails);

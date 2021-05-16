@@ -13,7 +13,7 @@ public class ReceiptDTO {
     private static final String storeStreet = "Glada gatan";
     private static final int storeStreetNo = 1337;
     private static final String storeCity = "Happy Town";
-    private static final String storeName = "Godtyclig Livs";
+    private static final String storeName = "Godtycklig Livs";
     private double amountPaid;
     private double amountChange;
     private Sale saleDetails;

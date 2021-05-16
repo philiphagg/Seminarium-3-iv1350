@@ -18,7 +18,7 @@ class MainTest {
     @AfterEach
     void tearDown() {
     }
-    
+
     @Test
     void main() {
     }

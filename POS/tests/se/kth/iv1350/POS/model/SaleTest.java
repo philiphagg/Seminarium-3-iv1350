@@ -8,6 +8,9 @@ import se.kth.iv1350.POS.integration.InvalidIdentifierException;
 import se.kth.iv1350.POS.integration.InventorySystem;
 import se.kth.iv1350.POS.integration.ItemDTO;
 import se.kth.iv1350.POS.integration.SystemStartup;
+import se.kth.iv1350.POS.util.FileLogger;
+
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,9 +22,9 @@ class SaleTest {
 
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws IOException {
         this.saleDetails = new Sale();
-        this.controller = new Controller();
+        this.controller = new Controller(new FileLogger());
         this.systemStartup = new SystemStartup();
         this.inventorySystem = systemStartup.getInventorySystem();
     }

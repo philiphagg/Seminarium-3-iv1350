@@ -8,7 +8,10 @@ import se.kth.iv1350.POS.integration.OperationFailedException;
 import se.kth.iv1350.POS.integration.Register;
 import se.kth.iv1350.POS.integration.SystemStartup;
 import se.kth.iv1350.POS.model.Sale;
+import se.kth.iv1350.POS.util.FileLogger;
 
+
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,8 +19,8 @@ class ControllerTest {
     Controller controller;
     Sale saleDetails;
     @BeforeEach
-    void setUp() {
-        this.controller = new Controller();
+    void setUp() throws IOException {
+        this.controller = new Controller(new FileLogger());
     }
 
     @AfterEach
@@ -37,7 +40,7 @@ class ControllerTest {
     }
 
     @Test
-    void scanItemFindscorrectItem() throws InvalidIdentifierException, OperationFailedException {
+    void scanItemFindscorrectItem() throws InvalidIdentifierException, OperationFailedException, IOException {
         controller.initializeSale();
         saleDetails = controller.scanItem(3,2);
         String expectedItemName = "bröd";
@@ -45,7 +48,7 @@ class ControllerTest {
         assertEquals(expectedItemName,actual, "Expected item didn't add to sale object");
     }
     @Test
-    void scanItemZeroQty() throws InvalidIdentifierException, OperationFailedException {
+    void scanItemZeroQty() throws InvalidIdentifierException, OperationFailedException, IOException {
         controller.initializeSale();
         saleDetails = controller.scanItem(1,0);
         int numberOfItemsInSale = saleDetails.getItemListInSale().size();
@@ -54,7 +57,7 @@ class ControllerTest {
 
     }
     @Test
-    void testScanItemAddsItem() throws InvalidIdentifierException, OperationFailedException {
+    void testScanItemAddsItem() throws InvalidIdentifierException, OperationFailedException, IOException {
         controller.initializeSale();
         saleDetails = controller.scanItem(1,1);
 
@@ -63,7 +66,7 @@ class ControllerTest {
         assertEquals(expectedItemsInSale,numberOfItemsInSale, "Items was not added");
     }
     @Test
-    void testScanItemAddsQty() throws InvalidIdentifierException, OperationFailedException {
+    void testScanItemAddsQty() throws InvalidIdentifierException, OperationFailedException, IOException {
         controller.initializeSale();
         saleDetails = controller.scanItem(1,2);
 
@@ -113,7 +116,7 @@ class ControllerTest {
 
     }
     @Test
-    void testReturnsChange() throws InvalidIdentifierException, OperationFailedException {
+    void testReturnsChange() throws InvalidIdentifierException, OperationFailedException, IOException {
         controller.initializeSale();
         controller.scanItem(1,1);
         double actual = controller.calculateChange(12.5);

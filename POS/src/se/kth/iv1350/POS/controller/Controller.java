@@ -4,6 +4,11 @@ import se.kth.iv1350.POS.integration.*;
 import se.kth.iv1350.POS.model.DiscountRules;
 import se.kth.iv1350.POS.model.Sale;
 import se.kth.iv1350.POS.model.SalesLog;
+import se.kth.iv1350.POS.util.ConsoleLogger;
+import se.kth.iv1350.POS.util.FileLogger;
+import se.kth.iv1350.POS.util.Logger;
+
+import java.io.IOException;
 
 /**
  * Controller class that hands out tasks to appropriate classes.
@@ -19,17 +24,23 @@ public class Controller {
     Printer printer;
     InventorySystem inventorySystem;
     ItemDTO latestScanedItemDTO;
+    Logger logger;
+    ConsoleLogger consoleLogger;
+
 
     /**
      * Constructor creates all appropriate objets to run the application.
      */
-    public Controller() {
+    public Controller(Logger logger) throws IOException {
         this.discountRules = new DiscountRules();
         this.systemStartUp = new SystemStartup();
         this.salesLog = new SalesLog(systemStartUp);
         this.inventorySystem = systemStartUp.getInventorySystem();
         this.printer = systemStartUp.getPrinter();
         this.register = systemStartUp.getRegister();
+        this.logger = logger;
+        consoleLogger = new ConsoleLogger(consoleLogger);
+
 
     }
 
@@ -52,13 +63,13 @@ public class Controller {
      * @param quantity      quantity of items sold.
      * @return              updated instance of Sale object
      */
-    public Sale scanItem(int identifier, int quantity) throws InvalidIdentifierException, OperationFailedException {
+    public Sale scanItem(int identifier, int quantity) throws InvalidIdentifierException, OperationFailedException, IOException {
         if(isZero(quantity))
             quantity = 1;
         try{
         latestScanedItemDTO = inventorySystem.getDetails(identifier);
         }catch (DBFailureException dbFailureException){
-            //add to log
+            logger.log(dbFailureException.toString()+ "Cant connect to database");
             throw new OperationFailedException("error with current identifier: "+identifier, dbFailureException);
 
         }

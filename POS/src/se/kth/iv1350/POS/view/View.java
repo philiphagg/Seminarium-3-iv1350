@@ -6,14 +6,17 @@ import se.kth.iv1350.POS.integration.InvalidIdentifierException;
 import se.kth.iv1350.POS.integration.ItemDTO;
 import se.kth.iv1350.POS.integration.OperationFailedException;
 import se.kth.iv1350.POS.model.Sale;
+import se.kth.iv1350.POS.util.FileLogger;
+
+import java.io.IOException;
 
 public class View  {
     Controller controller;
     Sale saleDetails;
 
-    public View(){
+    public View() throws IOException {
 
-        this.controller = new Controller();
+        this.controller = new Controller(new FileLogger());
     }
 
 
@@ -27,9 +30,12 @@ public class View  {
         try {
             saleDetails = controller.scanItem(identifier, quantity);
         }catch(InvalidIdentifierException invalidIdentifierException){
-            System.out.println("identifier you're trying to scan is invalid");
+            System.out.println("identifier you're trying to scan is invalid: identifier " +identifier);
+            return;
         }catch(OperationFailedException operationFailedException){
             System.out.println("Something went wrong -> " +operationFailedException);
+        }catch (IOException ioe) {
+            ioe.printStackTrace();
         }
         ItemDTO recentlyScannedItemDTO = recentScannedItem();
         System.out.println("-------------------------->");

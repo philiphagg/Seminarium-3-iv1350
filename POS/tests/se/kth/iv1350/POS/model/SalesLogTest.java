@@ -5,6 +5,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import se.kth.iv1350.POS.controller.Controller;
 import se.kth.iv1350.POS.integration.*;
+import se.kth.iv1350.POS.util.FileLogger;
+
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,9 +18,9 @@ class SalesLogTest {
     SalesLog salesLog;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws IOException {
         systemStartup = new SystemStartup();
-        controller = new Controller();
+        controller = new Controller(new FileLogger());
         salesLog = new SalesLog(systemStartup);
     }
 
@@ -27,7 +30,7 @@ class SalesLogTest {
     }
 
     @Test
-    void logSaleLogsReceipt() throws InvalidIdentifierException, OperationFailedException {
+    void logSaleLogsReceipt() throws InvalidIdentifierException, OperationFailedException, IOException {
         controller.initializeSale();
         Sale saleDetails = controller.scanItem(1,1);
         ReceiptDTO receiptDTO = new ReceiptDTO(100,10,saleDetails);

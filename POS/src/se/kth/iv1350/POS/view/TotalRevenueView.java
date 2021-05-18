@@ -10,8 +10,9 @@ public class TotalRevenueView implements SaleObserver {
     double totalRevenue;
 
     /**
+     *  Prints the total revenue to the console.
      *
-     * @param totalRev
+     * @param totalRev  revenue that shall be printed
      */
     @Override
     public void saleRevenue(double totalRev) {
@@ -21,6 +22,11 @@ public class TotalRevenueView implements SaleObserver {
         System.out.println("***************************");
     }
 
+    /**
+     * Calculates the total price for all sales since program started
+     *
+     * @param totalPrice    total price for this sale instance
+     */
     @Override
     public void calculateTotalRev(double totalPrice) {
         totalRevenue += totalPrice;

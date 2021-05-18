@@ -1,14 +1,14 @@
 package se.kth.iv1350.POS.controller;
 
 import se.kth.iv1350.POS.integration.*;
-import se.kth.iv1350.POS.model.DiscountRules;
-import se.kth.iv1350.POS.model.Sale;
-import se.kth.iv1350.POS.model.SalesLog;
+import se.kth.iv1350.POS.model.*;
 import se.kth.iv1350.POS.util.ConsoleLogger;
-import se.kth.iv1350.POS.util.FileLogger;
 import se.kth.iv1350.POS.util.Logger;
+import se.kth.iv1350.POS.view.TotalRevenueView;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Controller class that hands out tasks to appropriate classes.
@@ -23,16 +23,17 @@ public class Controller {
     SalesLog salesLog;
     Printer printer;
     InventorySystem inventorySystem;
-    ItemDTO latestScanedItemDTO;
+    ItemDTO latestScannedItemDTO;
     Logger logger;
     ConsoleLogger consoleLogger;
+    private List<SaleObserver> saleObservers = new ArrayList<>();
 
 
     /**
      * Constructor creates all appropriate objets to run the application.
      */
     public Controller(Logger logger) throws IOException {
-        this.discountRules = new DiscountRules();
+        this.discountRules = new DiscountRules(new DiscountFirstCase(), new DiscountSecondCase());
         this.systemStartUp = new SystemStartup();
         this.salesLog = new SalesLog(systemStartUp);
         this.inventorySystem = systemStartUp.getInventorySystem();
@@ -40,6 +41,7 @@ public class Controller {
         this.register = systemStartUp.getRegister();
         this.logger = logger;
         consoleLogger = new ConsoleLogger(consoleLogger);
+        salesLog.addSaleObserver(new TotalRevenueView());
 
 
     }
@@ -67,13 +69,13 @@ public class Controller {
         if(isZero(quantity))
             quantity = 1;
         try{
-        latestScanedItemDTO = inventorySystem.getDetails(identifier);
+        latestScannedItemDTO = inventorySystem.getDetails(identifier);
         }catch (DBFailureException dbFailureException){
             logger.log(dbFailureException.toString()+ "Cant connect to database");
             throw new OperationFailedException("error with current identifier: "+identifier, dbFailureException);
 
         }
-        saleDetails.addItem(latestScanedItemDTO, quantity);
+        saleDetails.addItem(latestScannedItemDTO, quantity);
 
         return saleDetails;
     }
@@ -144,6 +146,16 @@ public class Controller {
      * @return  latest scanned item
      */
     public ItemDTO getLatestItemDTO() {
-        return latestScanedItemDTO;
+        return latestScannedItemDTO;
+    }
+
+    /**
+     * adds the spcified view to a list of observers. That should be observing
+     * notified when a sale is completed
+     *
+     * @param totalRevenueView The view that should be added to the list
+     */
+    public void addSaleObserver(TotalRevenueView totalRevenueView) {
+        saleObservers.add(totalRevenueView);
     }
 }

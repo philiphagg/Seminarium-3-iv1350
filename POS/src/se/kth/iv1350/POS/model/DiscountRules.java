@@ -4,44 +4,42 @@ package se.kth.iv1350.POS.model;
 /**
  * Class that handles discounts and rules based on information about the customer and
  * the current sale.
- * Simple calculation demonstrated although it was not included in seminar 3.
+ *
  */
 
 public class DiscountRules {
-    private int numberOfItemBought;
-    private int identfier; // item bought
-    private double totalCostEntireSale;
+    DiscountEligability discountFirstCase;
+    DiscountEligability discountSecondCase;
 
-    public DiscountRules DiscountRules(){
-        DiscountRules discountRules = new DiscountRules();
-        return discountRules;
+    /**
+     * assigns instances of <code>DiscountFirstCase</code> and <code>DiscountSecondCase</code>
+     *
+     *
+     * @param discountFirstCase instance created by controller
+     * @param discountSecondCase instance created by the controller
+     */
+    public DiscountRules(DiscountFirstCase discountFirstCase, DiscountSecondCase discountSecondCase) {
+        this.discountFirstCase = discountFirstCase;
+        this.discountSecondCase = discountSecondCase;
     }
 
     /**
-     * Calculates amount discount that the customer are offered. If customer bought
-     * more than 10 items, they get 5% discount.
+     * implements strategy pattern. if customer are eligiable for first discount
+     * they get second discount
      *
      * @param custumerSSN   Customer identification number (social security number)
      * @param saleDetails   details about the sale and items bought
      * @return              total price for sale including discount.
      */
     public double calculateDiscount(long custumerSSN, Sale saleDetails){
-        int totalItemsBought = saleDetails.getTotalItemQuantityInSale();
+        double priceHolder = saleDetails.getTotalPriceForSale();
+        discountFirstCase.calculateDiscount(custumerSSN,saleDetails);
 
-        if(totalItemsBought > 10){
-            calculateNewPrice(saleDetails);
-            return newPrice(saleDetails);
-        }
+        if(priceHolder != saleDetails.getTotalPriceForSale())
+            discountSecondCase.calculateDiscount(custumerSSN,saleDetails);
 
 
         return saleDetails.getTotalPriceForSale();
     }
 
-    private double newPrice(Sale saleDetails) {
-        return saleDetails.getTotalPriceForSale();
-    }
-
-    private void calculateNewPrice(Sale saleDetails) {
-        saleDetails.setTotalPriceForSale(saleDetails.getTotalPriceForSale() * 0.95);
-    }
 }

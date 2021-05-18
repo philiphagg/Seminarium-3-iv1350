@@ -3,6 +3,7 @@ package se.kth.iv1350.POS.startup;
 
 
 import se.kth.iv1350.POS.integration.InvalidIdentifierException;
+import se.kth.iv1350.POS.view.TotalRevenueView;
 import se.kth.iv1350.POS.view.View;
 
 import java.io.IOException;
@@ -23,6 +24,8 @@ public class Main {
     public static void main(String[] args) throws InvalidIdentifierException, IOException {
         View view = new View();
         view.runFakeExecution();
+        view.runFakeExecution();
+
     }
 
 }

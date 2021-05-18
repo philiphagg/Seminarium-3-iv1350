@@ -61,7 +61,7 @@ public class ReceiptDTO {
         return amountChange;
     }
 
-    Sale getSaleDetails() {
+    public Sale getSaleDetails() {
         return saleDetails;
     }
 

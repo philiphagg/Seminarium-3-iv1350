@@ -1,13 +1,17 @@
 package se.kth.iv1350.POS.integration;
 
+/**
+ * Contains the exception thrown when an identifier that is
+ * not in the inventorysystem. Extends exceptions because it's
+ * a checked exception.
+ */
+
 public class InvalidIdentifierException extends Exception {
+
     /**
-     * Constructs a new exception with the specified detail message.  The
-     * cause is not initialized, and may subsequently be initialized by
-     * a call to {@link #initCause}.
+     * Constructs a new exception with the specified detail message.
      *
-     * @param message the detail message. The detail message is saved for
-     *                later retrieval by the {@link #getMessage()} method.
+     * @param message the detail message.
      */
     public InvalidIdentifierException(String message) {
         super(message);

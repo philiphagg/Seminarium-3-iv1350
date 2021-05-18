@@ -1,14 +1,17 @@
 package se.kth.iv1350.POS.integration;
 
+
+/**
+ * Exception that notifies the user about the <code>DBFailureException</code>
+ * when an unchecked exception is caught.
+ */
 public class OperationFailedException extends Exception {
 
     /**
      * Constructs a new runtime exception with the specified detail message.
-     * The cause is not initialized, and may subsequently be initialized by a
-     * call to {@link #initCause}.
      *
-     * @param message the detail message. The detail message is saved for
-     *                later retrieval by the {@link #getMessage()} method.
+     * @param message   the detail message.
+     * @param cause     the exception that was originally thrown
      */
     public OperationFailedException(String message, Exception cause) {
         super(message, cause);

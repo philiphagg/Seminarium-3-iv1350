@@ -10,13 +10,17 @@ import se.kth.iv1350.POS.util.FileLogger;
 
 import java.io.IOException;
 
-public class View  {
+public class View   {
     Controller controller;
     Sale saleDetails;
 
-    public View() throws IOException {
 
+    public View() throws IOException {
         this.controller = new Controller(new FileLogger());
+        controller.addSaleObserver(new TotalRevenueView());
+
+
+
     }
 
 
@@ -81,10 +85,11 @@ public class View  {
      */
     public void runFakeExecution() throws InvalidIdentifierException {
         initializeSale();
-        scanItem(3,1);
+        scanItem(2,1);
         scanItem(10,1);
         scanItem(3,3);
         scanItem(5,1);
+        requestDiscount(3L);
         endSale();
         enterAmountPaid(250);
     }

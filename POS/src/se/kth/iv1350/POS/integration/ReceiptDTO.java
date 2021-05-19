@@ -33,7 +33,7 @@ public class ReceiptDTO {
         this.amountPaid = amountPaid;
         this.amountChange = amountChange;
         this.saleDetails = saleDetails;
-        this.dateTime = LocalDateTime.now(); // här kan man lägga in operationen för att hämta datetime
+        this.dateTime = LocalDateTime.now();
     }
 
 

@@ -3,10 +3,8 @@ package se.kth.iv1350.POS.integration;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import se.kth.iv1350.POS.controller.Controller;
-import se.kth.iv1350.POS.model.Sale;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 /**
@@ -31,12 +29,21 @@ class InventorySystemTest {
 
 
     @Test
-    void getDetailsCreatesItemDTOCorrectly()  {
+    void getDetailsCreatesItemDTOCorrectly() throws DBFailureException {
 
         itemDTO = inventorySystem.getDetails(3);
         String expectedItemName = "bröd";
         String actual = itemDTO.getItemName();
         assertEquals(expectedItemName,actual, "Expected item didn't add to sale object");
+    }
+    @Test
+    void getItemDetailsThrowsFailureDBReachException() throws DBFailureException{
+        int identifier = 5;
+        DBFailureException dbFailureException = assertThrows(
+                DBFailureException.class, () -> inventorySystem.getDetails(identifier), "Did not throw expected exception"
+        );
+
+        assertTrue(dbFailureException.getMessage().contains("error code: 125454213"), "Did not throw expected exception");
     }
 
 }

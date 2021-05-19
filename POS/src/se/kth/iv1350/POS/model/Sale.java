@@ -21,7 +21,7 @@ public class Sale {
      */
     public Sale() {
         this.itemListInSale = new ArrayList<>();
-        this.itemQuantityListInSale = new ArrayList<Integer>();
+        this.itemQuantityListInSale = new ArrayList<>();
         this.totalPriceForSale = 0;
         this.totalVatPrice = 0;
         this.totalItemQuantityInSale = 0;

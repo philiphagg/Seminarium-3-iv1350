@@ -8,6 +8,7 @@ import se.kth.iv1350.POS.integration.OperationFailedException;
 import se.kth.iv1350.POS.integration.Register;
 import se.kth.iv1350.POS.integration.SystemStartup;
 import se.kth.iv1350.POS.model.Sale;
+import se.kth.iv1350.POS.model.SaleObserver;
 import se.kth.iv1350.POS.util.FileLogger;
 
 
@@ -18,6 +19,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class ControllerTest {
     Controller controller;
     Sale saleDetails;
+
+
     @BeforeEach
     void setUp() throws IOException {
         this.controller = new Controller(new FileLogger());
@@ -131,6 +134,19 @@ class ControllerTest {
         int actual = controller.salesLog.getSalesLog().size();
         int expected = 1;
         assertEquals(expected,actual);
+
+    }
+    @Test
+    void testOperationFailedException(){
+        OperationFailedException operationFailedException = assertThrows(
+                OperationFailedException.class, () -> controller.scanItem(5,1) , "Did not throw expected exception"
+        );
+
+        assertTrue(operationFailedException.getMessage().contains("error with current identifier"), "Did not throw expected exception");
+    }
+
+    @Test
+    void addSaleObserver(){
 
     }
 

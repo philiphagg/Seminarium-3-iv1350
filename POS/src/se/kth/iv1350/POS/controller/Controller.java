@@ -62,7 +62,12 @@ public class Controller {
      *
      * @param identifier    each item has a individual identifier
      * @param quantity      quantity of items sold.
+     *
      * @return              updated instance of Sale object
+     *
+     * @throws InvalidIdentifierException if an identifier is entered that's not in te
+     *                                    registry
+     * @throws OperationFailedException   if the database cannot be reached
      */
     public Sale scanItem(int identifier, int quantity) throws InvalidIdentifierException, OperationFailedException, IOException {
         if(isZero(quantity))
@@ -72,7 +77,6 @@ public class Controller {
         }catch (DBFailureException dbFailureException){
             logger.log(dbFailureException.toString()+ "Cant connect to database");
             throw new OperationFailedException("error with current identifier: "+identifier, dbFailureException);
-
         }
         saleDetails.addItem(latestScannedItemDTO, quantity);
 

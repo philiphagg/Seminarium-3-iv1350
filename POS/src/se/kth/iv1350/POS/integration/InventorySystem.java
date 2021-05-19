@@ -10,12 +10,9 @@ import java.util.ArrayList;
  */
 
 public class InventorySystem {
-    Controller controller;
     ItemDTO itemDTO;
-    //Item item;
     ArrayList<ItemDTO> inventoryItemList;
     ArrayList<Integer> inventoryQuantityList;
-    ReceiptDTO receiptDTO;
 
     InventorySystem() {
         inventoryItemList = new ArrayList<>();
@@ -53,11 +50,11 @@ public class InventorySystem {
      * @param identifier    item identifier
      * @return              a newly creater itemdto with information found
      */
-    public ItemDTO getDetails(int identifier) {
+    public ItemDTO getDetails(int identifier) throws DBFailureException {
 
         return findItem(identifier);
     }
-    private ItemDTO findItem(int identifier) {
+    private ItemDTO findItem(int identifier) throws DBFailureException {
         if(identifier == 5)
             throw new DBFailureException("error code: 125454213");
         for (int index = 0; index < inventoryItemList.size(); index++){

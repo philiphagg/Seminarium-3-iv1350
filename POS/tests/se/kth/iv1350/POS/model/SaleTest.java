@@ -4,10 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import se.kth.iv1350.POS.controller.Controller;
-import se.kth.iv1350.POS.integration.InvalidIdentifierException;
-import se.kth.iv1350.POS.integration.InventorySystem;
-import se.kth.iv1350.POS.integration.ItemDTO;
-import se.kth.iv1350.POS.integration.SystemStartup;
+import se.kth.iv1350.POS.integration.*;
 import se.kth.iv1350.POS.util.FileLogger;
 
 import java.io.IOException;
@@ -40,7 +37,7 @@ class SaleTest {
     }
 
     @Test
-    void addItemToSale() throws InvalidIdentifierException {
+    void addItemToSale() throws InvalidIdentifierException, DBFailureException {
         ItemDTO itemDTO = inventorySystem.getDetails(1);
         saleDetails.addItem(itemDTO,1);
         int actual = saleDetails.getItemListInSale().size();
@@ -48,7 +45,7 @@ class SaleTest {
         assertEquals(expected,actual,"no item was added to Sale");
     }
     @Test
-    void addQuantityToSale() throws InvalidIdentifierException {
+    void addQuantityToSale() throws InvalidIdentifierException, DBFailureException {
         ItemDTO itemDTO = inventorySystem.getDetails(1);
         saleDetails.addItem(itemDTO,2);
         int actual = saleDetails.getItemQuantityListInSale().size();
@@ -56,7 +53,7 @@ class SaleTest {
         assertEquals(expected,actual,"no quantity was added to Sale");
     }
     @Test
-    void addTotalPriceForSale() throws InvalidIdentifierException {
+    void addTotalPriceForSale() throws InvalidIdentifierException, DBFailureException {
         ItemDTO itemDTO = inventorySystem.getDetails(1);
         saleDetails.addItem(itemDTO,2);
         double actual = saleDetails.getTotalPriceForSale();
@@ -64,7 +61,7 @@ class SaleTest {
         assertEquals(expected,actual,"total price for sale wasn't calculated correctly");
     }
     @Test
-    void addVatPrice() throws InvalidIdentifierException {
+    void addVatPrice() throws InvalidIdentifierException, DBFailureException {
         ItemDTO itemDTO = inventorySystem.getDetails(1);
         saleDetails.addItem(itemDTO,2);
         double actual = saleDetails.getTotalVatPrice();
@@ -73,7 +70,7 @@ class SaleTest {
 
     }
     @Test
-    void addTotalItemQuantity() throws InvalidIdentifierException {
+    void addTotalItemQuantity() throws InvalidIdentifierException, DBFailureException {
         ItemDTO itemDTO = inventorySystem.getDetails(1);
         saleDetails.addItem(itemDTO,2);
         double actual = saleDetails.getTotalItemQuantityInSale();
@@ -82,7 +79,7 @@ class SaleTest {
     }
 
     @Test
-    void addItemAlreadyScanned() throws InvalidIdentifierException {
+    void addItemAlreadyScanned() throws InvalidIdentifierException, DBFailureException {
         ItemDTO itemDTO = inventorySystem.getDetails(1);
         saleDetails.addItem(itemDTO,1);
         saleDetails.addItem(itemDTO,1);
@@ -91,7 +88,7 @@ class SaleTest {
         assertEquals(expected,actual,"no item was added to Sale");
     }
     @Test
-    void addItemAlreadyScannedCheckQuantityList() throws InvalidIdentifierException {
+    void addItemAlreadyScannedCheckQuantityList() throws InvalidIdentifierException, DBFailureException {
         ItemDTO itemDTO = inventorySystem.getDetails(1);
         saleDetails.addItem(itemDTO,2);
         saleDetails.addItem(itemDTO,3);
@@ -100,13 +97,24 @@ class SaleTest {
         assertEquals(expected,actual,"quantity did not calculate correctly after scanning same item");
     }
     @Test
-    void addItemAlreadyScannedTotalQuantity() throws InvalidIdentifierException {
+    void addItemAlreadyScannedTotalQuantity() throws InvalidIdentifierException, DBFailureException {
         ItemDTO itemDTO = inventorySystem.getDetails(1);
         saleDetails.addItem(itemDTO,2);
         saleDetails.addItem(itemDTO,3);
         int actual = saleDetails.getTotalItemQuantityInSale();
         int expected = 5;
         assertEquals(expected,actual,"quantity did not calculate correctly after scanning same item");
+    }
+
+    @Test
+    void getItemDetailsThrowsInvalidIdentifierException() throws InvalidIdentifierException, DBFailureException {
+
+        ItemDTO itemDTO = inventorySystem.getDetails(10);
+        InvalidIdentifierException invalidIdentifierException = assertThrows(
+                InvalidIdentifierException.class, () -> saleDetails.addItem(itemDTO, 1), "Did not throw expected exception"
+        );
+
+        assertTrue(invalidIdentifierException.getMessage().contains("identifier is invalid:"), "Did not throw expected exception");
     }
 
 

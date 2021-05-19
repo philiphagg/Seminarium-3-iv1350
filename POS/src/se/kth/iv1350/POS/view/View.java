@@ -1,7 +1,6 @@
 package se.kth.iv1350.POS.view;
 
 import se.kth.iv1350.POS.controller.Controller;
-import se.kth.iv1350.POS.integration.DBFailureException;
 import se.kth.iv1350.POS.integration.InvalidIdentifierException;
 import se.kth.iv1350.POS.integration.ItemDTO;
 import se.kth.iv1350.POS.integration.OperationFailedException;
@@ -86,9 +85,9 @@ public class View   {
     public void runFakeExecution() throws InvalidIdentifierException {
         initializeSale();
         scanItem(2,1);
-        scanItem(10,1);
+        scanItem(10,1); //invalid identifier
         scanItem(3,3);
-        scanItem(5,1);
+        scanItem(5,1); // identifier that causes db failure
         requestDiscount(3L);
         endSale();
         enterAmountPaid(250);

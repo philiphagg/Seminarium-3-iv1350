@@ -5,7 +5,7 @@ package se.kth.iv1350.POS.integration;
  * extends RuntimeException because it's a unchecked exception
  */
 
-public class DBFailureException extends RuntimeException{
+public class DBFailureException extends Exception{
 
     /**
      * creates a new instance of the <code>DBFailureException</code> with

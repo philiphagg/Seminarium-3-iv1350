@@ -18,7 +18,7 @@ public class TotalRevenueView implements SaleObserver {
     public void saleRevenue(double totalRev) {
         calculateTotalRev(totalRev);
         System.out.println("***************************");
-        System.out.println("* Current revenue: "+totalRevenue+"  *");
+        System.out.println("*  Current revenue: "+totalRevenue+"  *");
         System.out.println("***************************");
     }
 

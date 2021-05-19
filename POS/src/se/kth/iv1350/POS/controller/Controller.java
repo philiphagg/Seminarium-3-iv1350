@@ -43,7 +43,6 @@ public class Controller {
         consoleLogger = new ConsoleLogger(consoleLogger);
         salesLog.addSaleObserver(new TotalRevenueView());
 
-
     }
 
     /**

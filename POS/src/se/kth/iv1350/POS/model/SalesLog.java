@@ -3,10 +3,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import se.kth.iv1350.POS.integration.AccountingSystem;
-import se.kth.iv1350.POS.integration.InventorySystem;
-import se.kth.iv1350.POS.integration.ReceiptDTO;
-import se.kth.iv1350.POS.integration.SystemStartup;
+import se.kth.iv1350.POS.integration.*;
 
 public class SalesLog {
     ArrayList<ReceiptDTO> salesLog;
@@ -14,6 +11,11 @@ public class SalesLog {
     InventorySystem inventorySystem;
     TotalRevenueFileOutput totalRevenueFileOutput;
     private List<SaleObserver> saleObservers = new ArrayList<>();
+    private UpdateExternalSystems updateExternalSystems;
+    ExternalSystemsFactory externalSystemsFactory;
+
+
+
 
     /**
      * initiates sales log and getting references to appropriate systems.
@@ -25,6 +27,10 @@ public class SalesLog {
         inventorySystem = systemStartup.getInventorySystem();
         salesLog = new ArrayList<>();
         this.totalRevenueFileOutput = new TotalRevenueFileOutput();
+        this.updateExternalSystems = systemStartup.getUIS();
+
+
+
     }
 
     /**
@@ -38,8 +44,10 @@ public class SalesLog {
         addSaleToSalesLog(receiptDTO);
         notifyObservers(receiptDTO);
         totalRevenueFileOutput.saleRevenue(receiptDTO.getSaleDetails().getTotalPriceIncVat());
-        accountingSystem.updateAccountingSystem(receiptDTO);
-        inventorySystem.updateInventorySystem(receiptDTO);
+        this.externalSystemsFactory = new ExternalSystemsFactory();
+        externalSystemsFactory.getComposite();
+        updateExternalSystems.updateSystem(receiptDTO);
+
 
     }
 

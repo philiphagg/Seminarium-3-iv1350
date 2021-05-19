@@ -11,6 +11,10 @@ public class SystemStartup {
     AccountingSystem accountingSystem;
     Register register;
     Printer printer;
+    Composite composite;
+    UpdateExternalSystems UIS;
+    UpdateExternalSystems UAS;
+
 
 
     /**
@@ -21,6 +25,10 @@ public class SystemStartup {
         this.inventorySystem = new InventorySystem();
         this.register = new Register();
         this.printer = new Printer();
+        this.composite = new Composite();
+        this.UIS = new UpdateInventorySystem(this);
+        this.UAS = new UpdateAccountingSystem(this);
+
     }
 
     /**
@@ -60,4 +68,18 @@ public class SystemStartup {
     public Printer getPrinter() {
         return printer;
     }
+
+    /**
+     * Extracts attributes from the object <code>SystemStartUp</code>
+     *
+     * @return UpdateInventorySystem object
+     */
+
+    public UpdateExternalSystems getUIS() {
+        return UIS;
+    }
+
+
+
+
 }

@@ -8,13 +8,10 @@ import se.kth.iv1350.POS.integration.OperationFailedException;
 import se.kth.iv1350.POS.integration.Register;
 import se.kth.iv1350.POS.integration.SystemStartup;
 import se.kth.iv1350.POS.model.Sale;
-import se.kth.iv1350.POS.model.SaleObserver;
 import se.kth.iv1350.POS.util.FileLogger;
 
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 

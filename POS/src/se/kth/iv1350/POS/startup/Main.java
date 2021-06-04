@@ -20,6 +20,7 @@ public class Main {
      * @param args  array of command line arguments
      */
     public static void main(String[] args) throws IOException, InvalidIdentifierException {
+        System.out.println("System has been started");
         View view = new View();
         view.runFakeExecution();
         view.runFakeExecution();

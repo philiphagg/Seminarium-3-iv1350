@@ -66,6 +66,20 @@ class ViewTest {
         String expected = "Total price after discount:";
         assertTrue(printOut.contains(expected),"print out failed.");
     }
+    @Test
+    void runFakeExecutionExceptionTestInvalidIdentifierSystemOut() throws InvalidIdentifierException, IOException {
+        view.runFakeExecution();
+        String printOut = this.printBuffer.toString();
+        String expected = "identifier you're trying to scan is invalid: identifier";
+        assertTrue(printOut.contains(expected),"print out failed.");
+    }
+    @Test
+    void runFakeExecutionExceptionOperationFailedSystemOut() throws InvalidIdentifierException, IOException {
+        view.runFakeExecution();
+        String printOut = this.printBuffer.toString();
+        String expected = "Something went wrong ->";
+        assertTrue(printOut.contains(expected),"print out failed.");
+    }
 
 
     private void changeStreamOut(){

@@ -26,7 +26,6 @@ public class Controller {
     ItemDTO latestScannedItemDTO;
     Logger logger;
     ConsoleLogger consoleLogger;
-    private List<SaleObserver> saleObservers = new ArrayList<>();
 
 
     /**
@@ -127,7 +126,7 @@ public class Controller {
         return amountChange;
     }
 
-    private void logsSaleAndPrintsReceipt(ReceiptDTO receiptDTO) throws IOException {
+    private void logsSaleAndPrintsReceipt(ReceiptDTO receiptDTO) {
         salesLog.logSale(receiptDTO);
         printer.printReceipt(receiptDTO);
     }
@@ -159,7 +158,5 @@ public class Controller {
      *
      * @param totalRevenueView The view that should be added to the list
      */
-    public void addSaleObserver(TotalRevenueView totalRevenueView) {
-        saleObservers.add(totalRevenueView);
-    }
+
 }

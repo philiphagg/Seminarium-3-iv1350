@@ -16,7 +16,7 @@ public class View   {
 
     public View() throws IOException {
         this.controller = new Controller(new FileLogger());
-        controller.addSaleObserver(new TotalRevenueView());
+
 
 
 

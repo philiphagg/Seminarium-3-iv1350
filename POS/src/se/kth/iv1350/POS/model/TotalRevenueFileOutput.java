@@ -35,7 +35,6 @@ public class TotalRevenueFileOutput implements SaleObserver {
     public void saleRevenue(double totalRev) {
         calculateTotalRev(totalRev);
         fileLogger.log(revToString());
-        System.out.println();
     }
 
     /**

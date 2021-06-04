@@ -62,7 +62,7 @@ public class View   {
         System.out.println("Total Price inc VAT: " + totalPriceIncVat);
         System.out.println("<--------------------------");
     }
-    private void enterAmountPaid(double amountPaid){
+    private void enterAmountPaid(double amountPaid) throws IOException {
 
         double amountChange = controller.calculateChange(amountPaid);
         System.out.println("-------------------------->");
@@ -82,7 +82,7 @@ public class View   {
      * of function calls.
      *
      */
-    public void runFakeExecution() throws InvalidIdentifierException {
+    public void runFakeExecution() throws InvalidIdentifierException, IOException {
         initializeSale();
         scanItem(2,1);
         scanItem(10,1); //invalid identifier

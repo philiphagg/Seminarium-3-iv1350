@@ -12,7 +12,9 @@ import se.kth.iv1350.POS.model.SaleObserver;
 import se.kth.iv1350.POS.util.FileLogger;
 
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,14 +23,17 @@ class ControllerTest {
     Sale saleDetails;
 
 
+
     @BeforeEach
     void setUp() throws IOException {
         this.controller = new Controller(new FileLogger());
+
     }
 
     @AfterEach
     void tearDown() {
         this.controller = null;
+
     }
 
     @Test
@@ -128,7 +133,7 @@ class ControllerTest {
     }
 
     @Test
-    void testCalculateChangeLogsSale(){
+    void testCalculateChangeLogsSale() throws IOException {
         controller.initializeSale();
         controller.calculateChange(100);
         int actual = controller.salesLog.getSalesLog().size();
@@ -149,5 +154,7 @@ class ControllerTest {
     void addSaleObserver(){
 
     }
+
+
 
 }

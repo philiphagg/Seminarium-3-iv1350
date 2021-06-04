@@ -35,6 +35,7 @@ class SalesLogTest {
         Sale saleDetails = controller.scanItem(1,1);
         ReceiptDTO receiptDTO = new ReceiptDTO(100,10,saleDetails);
         salesLog.logSale(receiptDTO);
+
         int actual = salesLog.getSalesLog().size();
         int expected = 1;
         assertEquals(expected,actual,"Receipt wasn't added to Sales log");

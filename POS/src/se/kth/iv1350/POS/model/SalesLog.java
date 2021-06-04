@@ -40,10 +40,9 @@ public class SalesLog {
      *                      therefore I choosed to log the receipt that contains
      *                      all availiable information about each sale
      */
-    public void logSale(ReceiptDTO receiptDTO){
+    public void logSale(ReceiptDTO receiptDTO) throws IOException {
         addSaleToSalesLog(receiptDTO);
         notifyObservers(receiptDTO);
-        totalRevenueFileOutput.saleRevenue(receiptDTO.getSaleDetails().getTotalPriceIncVat());
         this.externalSystemsFactory = new ExternalSystemsFactory();
         externalSystemsFactory.getComposite();
         updateExternalSystems.updateSystem(receiptDTO);

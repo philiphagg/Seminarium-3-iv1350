@@ -42,6 +42,7 @@ public class Controller {
         this.logger = logger;
         consoleLogger = new ConsoleLogger(consoleLogger);
         salesLog.addSaleObserver(new TotalRevenueView());
+        salesLog.addSaleObserver(new TotalRevenueFileOutput());
 
     }
 
@@ -117,7 +118,7 @@ public class Controller {
      * @param amountPaid    amount that customer pays for the sale
      * @return              amount change (amountPaid - salesPrice)
      */
-    public double calculateChange(double amountPaid){
+    public double calculateChange(double amountPaid) throws IOException {
         double amountChange = register.updateRegister(amountPaid, saleDetails);
         ReceiptDTO receiptDTO = new ReceiptDTO(amountPaid, amountChange, saleDetails);
         logsSaleAndPrintsReceipt(receiptDTO);
@@ -126,7 +127,7 @@ public class Controller {
         return amountChange;
     }
 
-    private void logsSaleAndPrintsReceipt(ReceiptDTO receiptDTO) {
+    private void logsSaleAndPrintsReceipt(ReceiptDTO receiptDTO) throws IOException {
         salesLog.logSale(receiptDTO);
         printer.printReceipt(receiptDTO);
     }

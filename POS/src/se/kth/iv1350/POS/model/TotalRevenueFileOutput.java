@@ -1,6 +1,7 @@
 package se.kth.iv1350.POS.model;
 
 import se.kth.iv1350.POS.util.FileLogger;
+import se.kth.iv1350.POS.view.TotalRevenueDisplay;
 
 import java.io.IOException;
 
@@ -9,10 +10,9 @@ import java.io.IOException;
  * responsible for writing total revenue to a file.
  *
  */
-public class TotalRevenueFileOutput implements SaleObserver {
+public class TotalRevenueFileOutput extends TotalRevenueDisplay {
     FileLogger fileLogger;
     String fileLocation = "POS/src/se/kth/iv1350/POS/model/Revenue.txt";
-    double totalRevenue;
 
     /**
      * Creates instance of the <code>TotalRevenueFileOutput</code> and
@@ -26,32 +26,15 @@ public class TotalRevenueFileOutput implements SaleObserver {
         fileLogger = new FileLogger(fileLocation);
     }
 
-    /**
-     * Calculates total revenue and logs to file
-     *
-     * @param totalRev total revenue for the sale
-     */
     @Override
-    public void saleRevenue(double totalRev) {
-        calculateTotalRev(totalRev);
-        fileLogger.log(revToString());
+    protected void executeShowTotalIncome(double totalRevenue) {
+        fileLogger.log(Double.toString(totalRevenue));
     }
 
-    /**
-     * Calculates the total price for all sales since program started
-     *
-     * @param totalPrice    total price for this sale instance
-     */
     @Override
-    public void calculateTotalRev(double totalPrice) {
-
-        totalRevenue += totalPrice;
-    }
-
-
-    private String revToString() {
-
-        return Double.toString(totalRevenue);
+    protected void handleErrors(Exception e) {
+        System.out.println("something went wrong, cannot log at current time");
 
     }
+
 }

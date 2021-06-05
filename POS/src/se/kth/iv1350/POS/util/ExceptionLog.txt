@@ -1,2 +1,2 @@
-2021-06-04T20:14:56.823278: se.kth.iv1350.POS.integration.DBFailureException: error code: 125454213Cant connect to database
-2021-06-04T20:14:56.823960: se.kth.iv1350.POS.integration.DBFailureException: error code: 125454213Cant connect to database
+2021-06-05T23:01:34.607024: se.kth.iv1350.POS.integration.DBFailureException: error code: 125454213Cant connect to database
+2021-06-05T23:01:34.631004: se.kth.iv1350.POS.integration.DBFailureException: error code: 125454213Cant connect to database

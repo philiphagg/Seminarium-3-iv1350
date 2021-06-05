@@ -51,7 +51,7 @@ public class SalesLog {
 
     private void notifyObservers(ReceiptDTO receiptDTO) {
         for (SaleObserver saleObs : saleObservers){
-            saleObs.saleRevenue(receiptDTO.getSaleDetails().getTotalPriceIncVat());
+            saleObs.saleFinished(receiptDTO.getSaleDetails().getTotalPriceIncVat());
         }
     }
 

@@ -5,7 +5,5 @@ package se.kth.iv1350.POS.model;
  */
 public interface SaleObserver {
 
-
-    void saleRevenue(double totalRev);
-    void calculateTotalRev(double totalPrice);
+    void saleFinished(double priceOfMostRecentSale);
 }

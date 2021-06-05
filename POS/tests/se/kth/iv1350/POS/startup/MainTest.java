@@ -37,7 +37,7 @@ class MainTest {
         Main.main(args);
         String printOut = this.printBuffer.toString();
         String expected = "System has been started";
-        assertTrue(printOut.contains(expected),"print out failed.");
+        assertTrue(printOut.contains(expected),expected+"was not included in the array");
     }
 
     private void changeStreamOut(){

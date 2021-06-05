@@ -14,7 +14,7 @@ public class TotalRevenueView extends TotalRevenueDisplay {
 
     @Override
     protected void executeShowTotalIncome(double totalRevenue) {
-        System.out.println("**********new***************");
+        System.out.println("***************************");
         System.out.println("*  Current revenue: "+totalRevenue+"  *");
         System.out.println("***************************");
     }

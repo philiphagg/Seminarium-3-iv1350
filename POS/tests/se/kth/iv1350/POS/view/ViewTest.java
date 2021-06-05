@@ -35,28 +35,28 @@ class ViewTest {
         view.runFakeExecution();
         String printOut = this.printBuffer.toString();
         String expected = "A new sale has been started";
-        assertTrue(printOut.contains(expected),"print out failed.");
+        assertTrue(printOut.contains(expected),expected+"was not included in the array");
     }
     @Test
     void runFakeExecutionScanItemPrint() throws InvalidIdentifierException, IOException {
         view.runFakeExecution();
         String printOut = this.printBuffer.toString();
         String expected = "Running total ex VAT";
-        assertTrue(printOut.contains(expected),"print out failed.");
+        assertTrue(printOut.contains(expected),expected+"was not included in the array");
     }
     @Test
     void runFakeExecutionEndSale() throws InvalidIdentifierException, IOException {
         view.runFakeExecution();
         String printOut = this.printBuffer.toString();
         String expected = "sale finished";
-        assertTrue(printOut.contains(expected),"print out failed.");
+        assertTrue(printOut.contains(expected),expected+"was not included in the array");
     }
     @Test
     void runFakeExecutionEnterAmountPaid() throws InvalidIdentifierException, IOException {
         view.runFakeExecution();
         String printOut = this.printBuffer.toString();
         String expected = "Amount change after payment:";
-        assertTrue(printOut.contains(expected),"print out failed.");
+        assertTrue(printOut.contains(expected),expected+"was not included in the array");
     }
 
     @Test
@@ -64,21 +64,21 @@ class ViewTest {
         view.runFakeExecution();
         String printOut = this.printBuffer.toString();
         String expected = "Total price after discount:";
-        assertTrue(printOut.contains(expected),"print out failed.");
+        assertTrue(printOut.contains(expected),expected+"was not included in the array");
     }
     @Test
     void runFakeExecutionExceptionTestInvalidIdentifierSystemOut() throws InvalidIdentifierException, IOException {
         view.runFakeExecution();
         String printOut = this.printBuffer.toString();
         String expected = "identifier you're trying to scan is invalid: identifier";
-        assertTrue(printOut.contains(expected),"print out failed.");
+        assertTrue(printOut.contains(expected),expected+"was not included in the array");
     }
     @Test
     void runFakeExecutionExceptionOperationFailedSystemOut() throws InvalidIdentifierException, IOException {
         view.runFakeExecution();
         String printOut = this.printBuffer.toString();
         String expected = "Something went wrong ->";
-        assertTrue(printOut.contains(expected),"print out failed.");
+        assertTrue(printOut.contains(expected),expected+"was not included in the array");
     }
 
 

@@ -50,7 +50,7 @@ class PrinterTest {
         printer.printReceipt(receiptDTO);
         String printOut = this.printBuffer.toString();
         String expected = "RECEIPT";
-        assertTrue(printOut.contains(expected),"Receipt was not printed as expected");
+        assertTrue(printOut.contains(expected),expected+"was not included in the array");
     }
     private void changeStreamOut(){
         printBuffer = new ByteArrayOutputStream();

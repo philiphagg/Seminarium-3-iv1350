@@ -31,7 +31,7 @@ class TotalRevenueViewTest {
         totalRevenueView.executeShowTotalIncome(100);
         String printOut = this.printBuffer.toString();
         String expected = "Current revenue:";
-        assertTrue(printOut.contains(expected),"Printout failed");
+        assertTrue(printOut.contains(expected),expected+"was not included in the array");
     }
     private void changeStreamOut(){
         printBuffer = new ByteArrayOutputStream();

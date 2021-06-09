@@ -1,7 +1,5 @@
 package se.kth.iv1350.POS.view;
 
-import se.kth.iv1350.POS.model.SaleObserver;
-
 
 /**
  * shows the total revenue in the user interface for business administration
@@ -9,9 +7,11 @@ import se.kth.iv1350.POS.model.SaleObserver;
 public class TotalRevenueView extends TotalRevenueDisplay {
 
 
-
-
-
+    /**
+     * method will print the total revenue since program started
+     *
+     * @param totalRevenue  the total revenue that shall be printed
+     */
     @Override
     protected void executeShowTotalIncome(double totalRevenue) {
         System.out.println("***************************");
